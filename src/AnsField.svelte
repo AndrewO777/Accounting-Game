@@ -58,7 +58,7 @@
 <td>
     <div class="tableCell">
         <div class="warningWrapper">
-            <img src="../static/warning.png" class="icon" class:hidden={!dateErr} alt="warning">
+            <img src="./static/warning.png" class="icon" class:hidden={!dateErr} alt="warning">
             <p class="errMsg">Date must be formated as mm/dd</p>
         </div>
         <input id="dateTxt" type="text" placeholder="mm/dd" bind:value={date} on:input={valuesChanged} on:blur={dateValidate}/>
@@ -77,7 +77,7 @@
 <td>
     <div class="tableCell">
         <div class="warningWrapper">
-            <img src="../static/warning.png" class="icon" class:hidden={!drErr} alt="warning">
+            <img src="./static/warning.png" class="icon" class:hidden={!drErr} alt="warning">
             <p class="errMsg">Dr must be a number</p>
         </div>
         <input id="drAmtTxt" type="text" bind:value={dr} on:input={valuesChanged}/>
@@ -86,7 +86,7 @@
 <td>
     <div class="tableCell">
         <div class="warningWrapper">
-            <img src="../static/warning.png" class="icon" class:hidden={!crErr} alt="warning">
+            <img src="./static/warning.png" class="icon" class:hidden={!crErr} alt="warning">
             <p class="errMsg">Cr must be a number</p>
         </div>
     <input id="crAmtTxt" name="crTxt" type="text" bind:value={cr} on:input={valuesChanged}/>
