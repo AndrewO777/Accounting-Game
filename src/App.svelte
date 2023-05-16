@@ -41,35 +41,34 @@
             return;
         } else { errMsg = false;}
         isRight = true;
-        if (type.toLowerCase() == result[index].correct_answers[0].type){
-            result[index].correct_answers[0].entries.forEach((element,i) => {
-                //Json fields are when type dr and cr
-                if (answersJson[i].date != element.when || answersJson[i].type.toLowerCase() != element.type){
-                    isRight = false;
-                    return;
-                }
-                else if (element.hasOwnProperty("Dr") && answersJson[i].dr != element.Dr){
-                    isRight = false;
-                    return;
-                }
-                else if (element.hasOwnProperty("Cr") && answersJson[i].cr != element.Cr){
-                    isRight = false;
-                    return;
-                }
-                else if (!element.hasOwnProperty("Dr") && answersJson[i].dr != 0){
-                    isRight = false;
-                    return;
-                }
-                else if (!element.hasOwnProperty("Cr") && answersJson[i].cr != 0){
-                    isRight = false;
-                    return;
-                }
-            });
-            if (isRight)
-            {
-                popupText = "That's right!";
-                popupBtnText = "Next";
+        let i = (type == "Cash") ? 0 : 1;
+        result[index].correct_answers[i].entries.forEach((element,i) => {
+        //Json fields are when type dr and cr
+        if (answersJson[i].date != element.when || answersJson[i].type.toLowerCase() != element.type){
+            isRight = false;
+                return;
             }
+            else if (element.hasOwnProperty("Dr") && answersJson[i].dr != element.Dr){
+                isRight = false;
+                return;
+            }
+            else if (element.hasOwnProperty("Cr") && answersJson[i].cr != element.Cr){
+                isRight = false;
+                return;
+            }
+            else if (!element.hasOwnProperty("Dr") && answersJson[i].dr != 0){
+                isRight = false;
+                return;
+            }
+            else if (!element.hasOwnProperty("Cr") && answersJson[i].cr != 0){
+                isRight = false;
+                return;
+            }
+        });
+        if (isRight)
+        {
+            popupText = "That's right!";
+            popupBtnText = "Next";
         }
         active = true;
 	}
