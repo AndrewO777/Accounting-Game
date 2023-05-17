@@ -14,11 +14,17 @@
     let cr = 0;
 
     function dateValidate(){
-        const regex = /^([1-9]|0[1-9]|1[0-2])\/\d{2}$/;
-        if (!regex.test(date) && date != ""){
+        let divider = date.search('/');
+        if (divider != 1 && divider != 2){
             dateErr = true;
         }
-        else 
+        else if(isNaN(Number(date.substring(0,divider))) || isNaN(Number(date.substring(divider+1)))){ 
+            dateErr = true;
+        }
+        else if (Number(date.substring(0,divider)) > 12 || Number(date.substring(0,divider)) <= 0 || Number(date.substring(divider+1)) > 31 || Number(date.substring(divider+1)) <= 0){
+            dateErr = true;
+        }
+        else
             dateErr = false;
     }
     async function valuesChanged() {
@@ -45,10 +51,11 @@
         else
             typeErr = false;
 
-        const regex = /^([1-9]|0[1-9]|1[0-2])\/\d{2}$/;
-        if (!regex.test(date) || date == "")
+        dateValidate()
+        if (dateErr)
             valid = false;
-
+        if (isInitial)
+            dateErr = false;
         //Input is valid
         isValid.update(values => {
             let newValues = [...values];
