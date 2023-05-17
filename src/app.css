@@ -97,6 +97,10 @@ button {
     padding: 5px 10px;
     visibility: hidden;
 }
+.errMsgGeneral {
+    color: rgb(180,60,60);
+    margin: 0;
+}
 .typeDiv {
     display: flex;
     justify-content: center;

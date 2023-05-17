@@ -3,6 +3,8 @@
 	import AnsField from "./AnsField.svelte";
     import { answers } from "./store.js";
     import { isValid } from "./store.js";
+
+    //variables
     let answersJson;
     answers.subscribe(value => { answersJson = value; });
 	let index = 0;
@@ -13,6 +15,7 @@
     let isRight = true;
     let valid = false;
     let errMsg = false;
+
 	async function getQuestions() {
         try {
             //getting question from json
@@ -27,7 +30,6 @@
         }
 	}
 	function nextQuestion() {
-        //add logic for checking if question was correct
         isValid.subscribe(values => {
             if (values.length == ((type == "Cash") ? result[index].correct_answers[0].entries.length : result[index].correct_answers[1].entries.length))
                 valid = true;
@@ -90,6 +92,8 @@
         popupText = "Sorry that's not right, try again.";
         popupBtnText = "Close";
     }
+
+    //questions
 	const promise = getQuestions();
 	let result;
     promise.then(
@@ -101,12 +105,6 @@
     <!--still waiting on fetching questions-->
 	<p>...waiting</p>
 {:then results}
-    <div class="overlay" class:hidden={!active}>
-        <div class="popup">
-            <h2>{popupText}</h2>
-            <button on:click|preventDefault={closePopup}>{popupBtnText}</button>
-        </div>
-    </div>
 	<h1>Accounting Questions</h1>
 	<p>{results[index].title}</p>
 	<p>{results[index].description}?</p>
@@ -142,8 +140,14 @@
 		{/each}
 		{/if}
         </table>
-        <p class="errMsg" class:hidden={!errMsg}>Please make sure the information in the above fields is valid, date cannot be blank</p>
+        <p class="errMsgGeneral" class:hidden={!errMsg}>Please make sure the information in the above fields is valid, date cannot be blank</p>
 		<button on:click|preventDefault={nextQuestion}>Submit</button>
+        <div class="overlay" class:hidden={!active}>
+            <div class="popup">
+                <h2>{popupText}</h2>
+                <button on:click|preventDefault={closePopup}>{popupBtnText}</button>
+            </div>
+        </div>
 	</form>
 {:catch error}
 	<p style="color:red">{error.message}</p>
